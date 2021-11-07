@@ -1,25 +1,3 @@
-# Interpret Raw Data
-
-## Raw Block data (blk*.dat)
-
-Block files store the raw blocks as they were received over the network.
-
-Block files are about 128 MB, allocated in 16 MB chunks to prevent excessive fragmentation.
-
-```
-https://blockchain.info/rawblock/00000000000000000003c1f0ea7a6786de8225ab55e6413c67df1446c398f5a7
-```
-
-### 下载block
-
-```
-wget -O block708253.blk "https://blockchain.info/rawblock/00000000000000000003c1f0ea7a6786de8225ab55e6413c67df1446c398f5a7?format=hex"
-```
-
-```
-wget -O block708253.blk "https://blockchain.info/rawblock/00000000000000000003c1f0ea7a6786de8225ab55e6413c67df1446c398f5a7?format=hex"
-```
-
 
 
 # Setting Environment
@@ -43,4 +21,40 @@ conda install -c conda-forge openjdk=8
 # check java version
 java -version
 ```
+
+
+
+
+
+# Processing Data
+
+## get block hex raw data
+
+Block files store the raw blocks as they were received over the network.
+
+Block files are about 128 MB, allocated in 16 MB chunks to prevent excessive fragmentation.
+
+Here, we can have a look at the
+
+[visualized block data](https://www.blockchain.com/btc/block/0000000000000000000304ad8a7cb419a8889c09a74317df07b681e2d3d1a7fb)
+
+[block data in json format](https://blockchain.info/rawblock/0000000000000000000304ad8a7cb419a8889c09a74317df07b681e2d3d1a7fb)
+
+use wget download the block raw data
+
+```
+wget -O block706515.blk "https://blockchain.info/rawblock/0000000000000000000304ad8a7cb419a8889c09a74317df07b681e2d3d1a7fb?format=hex"
+```
+
+## interpret raw data
+
+1 BTC = 1e8 satoshi(the smallest unit of Bitcoin)
+
+
+
+[Block Header Doc1](https://developer.bitcoin.org/reference/block_chain.html)
+
+[Block Header + Transaction Doc2](https://en.bitcoin.it/wiki/Protocol_documentation#tx)
+
+
 
