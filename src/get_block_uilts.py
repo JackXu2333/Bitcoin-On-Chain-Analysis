@@ -74,7 +74,7 @@ def blocks_hashlist_by_time(start_date=time.strptime('2009-01-10', '%Y-%m-%d')
     block_hash = []
     block_height = []
 
-    for i in range(start_date_epoch, end_date_epoch + 1, 86400000):
+    for i in range(start_date_epoch, end_date_epoch + 1, 86400):
         url = 'https://blockchain.info/blocks/' + str(i) + '000?format=json'
         #print(url)
         data = requests.get(url).json()
@@ -83,9 +83,15 @@ def blocks_hashlist_by_time(start_date=time.strptime('2009-01-10', '%Y-%m-%d')
             end_date_str = time.strftime("%Y-%m-%d", time.gmtime(i))
             break
 
+        current_block_hash = []
+        current_block_height = []
+
         for p in data:
-            block_hash.append(p['hash'])
-            block_height.append(p['block_index'])
+            current_block_hash.append(p['hash'])
+            current_block_height.append(p['block_index'])
+
+        block_hash = current_block_hash + block_hash
+        block_height = current_block_height + block_height
 
     # Print start end date
     print("Start: " + start_date_str + " End: " + end_date_str)
