@@ -25,14 +25,14 @@ output: dir of files labelled block_${height}.blk
 '''
 
 
-def blocks_blk_by_hash(block_hash=[], block_height=[]):
+def blocks_blk_by_hash(block_hash=[], block_height=[], data_parent_path = "../../data/"):
 
     if len(block_hash) == 0:
         print("Empty hash list")
         return -1
 
     # Make dir
-    dir = 'Blocks_' + str(block_height[0]) + '_' + str(block_height[len(block_height) - 1])
+    dir = data_parent_path + 'Blocks_' + str(block_height[0]) + '_' + str(block_height[len(block_height) - 1])
     if not os.path.exists(dir):
         os.makedirs(dir)
 

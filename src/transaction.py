@@ -16,55 +16,6 @@ from file_loader import FileLoader
 
 # protocol documentation: https://en.bitcoin.it/wiki/Protocol_documentation#tx
 
-# ============= transaction = ========================
-
-class Transaction:
-    def __init__(self, version, tx_in_count, tx_in, tx_out_count, tx_out):
-        self.version = version
-        self.tx_in_count = tx_in_count
-        self.tx_in = tx_in
-        self.tx_out_count = tx_out_count
-        self.tx_out = tx_out
-
-
-'''
-input: file_loader
-output: class Transaction
-'''
-def get_tx(in_file: FileLoader) -> Transaction:
-    version = convert_endian(in_file.read(8))
-#     print('version =', version)
-    
-    # optional variable, always 0001
-    flag = in_file.peek(4) # If present, always 0001
-    # print('flag = ', flag)
-
-    if(flag == '0001'):
-        in_file.read(4)
-    
-    tx_in_count = get_compact_size_unit(in_file)
-    # print('tx_in count = ', tx_in_count)
-    
-    tx_in_list = []
-    for _ in range(tx_in_count):
-        tx_in_list.append(get_tx_in(in_file))
-    
-    tx_out_count = get_compact_size_unit(in_file)
-    # print('tx_out count', tx_out_count)
-    
-    tx_out_list = []
-    for _ in range(tx_out_count):
-        tx_out_list.append(get_tx_out(in_file))
-
-    # ignore stupid tx_witness and lock time
-    # but of course we still need to read it 
-    if(flag == '0001'):
-        tx_witness = read_witness_list(in_file, tx_in_count)
-        
-    lock_time = in_file.read(8)
-    return Transaction(version, tx_in_count, tx_in_list, \
-                       tx_out_count, tx_out_list)
-        
 # ============= transaction in ========================
 
 class txIn:
@@ -137,3 +88,57 @@ def read_witness(in_file: FileLoader):
         witness_len = get_compact_size_unit(in_file)
         witness_struct.append(in_file.read(witness_len * 2))
     return witness_struct
+
+# ============= transaction = ========================
+
+class Transaction:
+    def __init__(self, version, tx_in_count, tx_in, tx_out_count, tx_out, tx_witness, lock_time):
+        self.version = version
+        self.tx_in_count = tx_in_count
+        self.tx_in = tx_in
+        self.tx_out_count = tx_out_count
+        self.tx_out = tx_out
+        self.tx_witness = tx_witness
+        self.lock_time = lock_time
+
+
+'''
+input: file_loader
+output: class Transaction
+'''
+def get_tx(in_file: FileLoader) -> Transaction:
+    version = convert_endian(in_file.read(8))
+#     print('version =', version)
+    
+    # optional variable, always 0001
+    flag = in_file.peek(4) # If present, always 0001
+    # print('flag = ', flag)
+
+    if(flag == '0001'):
+        in_file.read(4)
+    
+    tx_in_count = get_compact_size_unit(in_file)
+    # print('tx_in count = ', tx_in_count)
+    
+    tx_in_list = []
+    for _ in range(tx_in_count):
+        tx_in_list.append(get_tx_in(in_file))
+    
+    tx_out_count = get_compact_size_unit(in_file)
+    # print('tx_out count', tx_out_count)
+    
+    tx_out_list = []
+    for _ in range(tx_out_count):
+        tx_out_list.append(get_tx_out(in_file))
+
+    # ignore stupid tx_witness and lock time
+    # but of course we still need to read it 
+    if(flag == '0001'):
+        tx_witness = read_witness_list(in_file, tx_in_count)
+    else:
+        tx_witness = []
+        
+    lock_time = convert_endian(in_file.read(8))
+    return Transaction(version, tx_in_count, tx_in_list, \
+                       tx_out_count, tx_out_list, tx_witness, lock_time)
+        

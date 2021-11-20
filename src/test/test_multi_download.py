@@ -8,6 +8,8 @@
 @Contact :   s362xu@uwaterloo.ca
 @Desc    :   test code
 '''
+import sys
+sys.path.append('..')
 
 from get_block_uilts import *
 

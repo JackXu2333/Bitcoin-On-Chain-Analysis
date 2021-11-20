@@ -14,9 +14,11 @@
 class FileLoader:
     offset = 0
     
-    def __init__(self, data):
+    def __init__(self, data: str):
         self.data = data
-        
+        # print(type(data), type(self.data), str)
+        assert(type(self.data) == str)
+
     def read(self, number: int) -> str:
         res = self.data[self.offset: self.offset + number]
         self.offset += number
