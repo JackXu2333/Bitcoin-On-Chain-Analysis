@@ -1,4 +1,4 @@
-## block
+## Block
 
 The **block** message is sent in response to a getdata message which requests transaction information from a block hash.
 
@@ -46,7 +46,7 @@ The **block** message is sent in response to a getdata message which requests tr
 |     0+     | tx_witnesses |                         tx_witness[]                         | A list of witnesses, one for each input; omitted if *flag* is omitted above |
 |     4      |  lock_time   |                           uint32_t                           | The block number or timestamp at which this transaction is unlocked. If all TxIn inputs have final (0xffffffff) sequence numbers then lock_time is irrelevant. Otherwise, the transaction may not be added to a block until after lock_time (see [NLockTime](https://en.bitcoin.it/wiki/NLockTime)).|
 
-### lock time condition
+### Lock Time Condition
 
 | Value        | Description                                          |
 | ------------ | ---------------------------------------------------- |
