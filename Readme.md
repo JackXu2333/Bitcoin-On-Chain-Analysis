@@ -46,7 +46,7 @@ Wget is useful for downloading a single block raw data, which saves the same blo
 above into "block706515.blk" file:
 
 ```
-wget -O block706515.blk "https://blockchain.info/rawblock/0000000000000000000304ad8a7cb419a8889c09a74317df07b681e2d3d1a7fb?format=hex"
+wget -O block706515.blk "https://blockchain.info/rawblock/0000000000000000000098ff7f0a7841b836064a4e46617e24f51164e626e043?format=hex"
 ```
 
 ### Get multiple raw block data
@@ -66,4 +66,23 @@ Noted that 1 BTC = 1e8 satoshi(the smallest unit of Bitcoin)
 * [Block Header + Transaction Doc2](https://en.bitcoin.it/wiki/Protocol_documentation#tx)
 
 
+
+## Constructing Dataset
+
+1. Download raw data into `data` directory. You would see `data/Blocks_612866_610546` directory by default.
+
+```bash
+src/test$ python test_multi_download.py
+```
+
+2. Transforming raw data into dataset.
+
+see `example_raw_data_process.ipynb` in `src`. You would get `sample.txt` in `data/` .
+
+data format:
+
+ `[time, nBits, value, in_count, out_count]`
+
+* time: Epoch & Unix Timestamp
+* value: $10^{-8}$ BTC
 

@@ -37,7 +37,7 @@ def get_header(in_file: FileLoader) -> Header:
 #     print(merkle_root_hash)
     time = convert_endian(in_file.read(8))
 #     print('time = ', time)
-    nBits = in_file.read(8)
+    nBits = convert_endian(in_file.read(8))
 #     print('nBits = ', nBits)
     nonce = in_file.read(8)
 #     print('nonce = ', nonce)
