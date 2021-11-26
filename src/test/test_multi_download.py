@@ -12,13 +12,9 @@ import sys
 sys.path.append('..')
 
 from get_block_uilts import *
+from file_parse import *
 
-block_hash, block_height = blocks_hashlist_by_time(time.strptime('2020-01-01', '%Y-%m-%d')
-                                                   , time.strptime('2020-01-15', '%Y-%m-%d'))
+block = blocks_hashlist_by_time(time.strptime('2020-01-01', '%Y-%m-%d')
+                                                      , time.strptime('2020-01-02', '%Y-%m-%d'))
+multiblocks_blk_by_hash(block)
 
-#assert len(block_hash) == len(block_height)
-
-blocks_blk_by_hash(block_hash, block_height)
-
-#assert os.path.exists("test/Blocks_14_1")
-#assert len(os.listdir("test/Blocks_14_1")) == 14

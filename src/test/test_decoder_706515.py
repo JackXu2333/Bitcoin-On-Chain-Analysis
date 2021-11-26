@@ -9,20 +9,16 @@
 @Desc    :   test code
 '''
 
-
-import sys
-sys.path.append('..')
-
 from file_loader import FileLoader
 from transaction import *
 from utils import *
 from header import *
 
-with open('../../data/block706515.blk','r') as in_file:
+with open('./data/block706515.blk', 'r') as in_file:
     fd = FileLoader(in_file.readline())
     header = get_header(fd)
-    print(int(header.time,16))
-    assert int(header.time,16) == 1635113163
+    print(int(header.time, 16))
+    assert int(header.time, 16) == 1635113163
 
     txn_count = get_compact_size_unit(fd)
 
@@ -37,6 +33,6 @@ with open('../../data/block706515.blk','r') as in_file:
         total_in += tx.tx_in_count
         total_out += tx.tx_out_count
     print('total in = ', total_in, "total out", total_out)
-    
+
     assert total_in == 3615
     assert total_out == 1544
