@@ -1,4 +1,3 @@
-
 # Usage
 
 ## Setting Environment
@@ -55,8 +54,8 @@ Please refer to the [get_block_uilts.py](https://git.uwaterloo.ca/c367yang/cs651
 detail script function for downloading multiple raw block data file. You can choose to download
 either by block heights **blocks_JSON_by_height** or time period **blocks_blk_by_hash** where the blocks are created.
 
-You can also refer to [test_multi_download.py](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/test/test_multi_download.py) for 
-detail usage of the functions.
+You can also refer to [single_node_download.ipynb](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/single_node_download.ipynb) for 
+complete local downloading workflow.
 
 ### Interpreting raw block data
 
@@ -64,8 +63,6 @@ Noted that 1 BTC = 1e8 satoshi(the smallest unit of Bitcoin)
 
 * [Block Header Doc1](https://developer.bitcoin.org/reference/block_chain.html)
 * [Block Header + Transaction Doc2](https://en.bitcoin.it/wiki/Protocol_documentation#tx)
-
-
 
 ## Constructing Dataset
 
@@ -77,12 +74,23 @@ src/test$ python test_multi_download.py
 
 2. Transforming raw data into dataset.
 
-see `example_raw_data_process.ipynb` in `src`. You would get `sample.txt` in `data/` .
+Please use [hdfs_process_test.py](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/test/hdfs_process_test.py) in `test`, which will generate example result in the `data/` folder, or the cluster-ready verison [hdfs_process.py](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/hdfs_process.py).
 
 data format:
 
- `[time, nBits, value, in_count, out_count]`
+ `[time, nBits, value, in_count, out_count, count, value_min, value_max in_count, in_min, in_max, out_count, out_min, out_max]`
 
 * time: Epoch & Unix Timestamp
 * value: $10^{-8}$ BTC
+
+3. Result aggregation using [result_merging_augmentation.ipynb](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/result_merging_augmentation.ipynb)
+
+
+## Constructing Models
+
+Please visit [Model_Day.ipynb](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/model_day.ipynb) report for code and instruction regards to modeling using daily aggregated data, and [Model_Hour.ipynb](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/src/model_hour.ipynb) for working with hourly aggregated data.
+
+## Result
+
+Please refer to our [paper](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/doc/CS651_Final_Report.pdf) for more detail.
 
