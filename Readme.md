@@ -92,5 +92,5 @@ Please visit [Model_Day.ipynb](https://git.uwaterloo.ca/c367yang/cs651_final/-/b
 
 ## Result
 
-Please refer to our [paper](https://git.uwaterloo.ca/c367yang/cs651_final/-/blob/master/doc/CS651_Final_Report.pdf) for more detail.
+Please refer to our paper for more detail.
 
